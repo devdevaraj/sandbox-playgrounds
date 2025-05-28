@@ -1,0 +1,20 @@
+services:
+  pg2:
+    container_name: playground2
+    privileged: true
+    volumes:
+      - /dev/kvm:/dev/kvm
+    devices:
+      - /dev/kvm
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    image: repo.synnefo.solutions/devaraj/playground:latest
+    networks:
+      fc-bridge:
+        ipv4_address: 172.32.32.32
+
+networks:
+  fc-bridge:
+    external: true
+
