@@ -25,7 +25,7 @@ const TerminalComponent = ({
     const leftPane = document.querySelector('.left-pane') as HTMLDivElement;
     const term = new Terminal({
       cursorBlink: true,
-      fontFamily: "Source Code Pro, courier-new, courier, monospace",
+      fontFamily: "Hack Nerdfont, Source Code Pro, courier-new, courier, monospace",
       theme: { background: "black", foreground: "white" }
     });
 

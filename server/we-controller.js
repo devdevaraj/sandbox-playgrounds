@@ -5,7 +5,7 @@ export default function handleProxyConnection(clientSocket, path) {
  const targetUrl = getDestination(path);
  const targetSocket = new WebSocket(targetUrl);
  targetSocket.on('open', () => {
-  
+
   clientSocket.on('message', (msg) => {
    return targetSocket.send(msg.toString("utf8"))
   });
@@ -13,16 +13,22 @@ export default function handleProxyConnection(clientSocket, path) {
    return clientSocket.send(msg.toString("utf8"));
   });
  });
- 
+
  targetSocket.on("error", err => {
   console.log(err);
  });
- 
+
  const closeBoth = () => {
-  clientSocket.close();
-  targetSocket.close();
+  try {
+   if (clientSocket.OPEN) {
+    clientSocket.close();
+   }
+   if (targetSocket.OPEN) {
+    targetSocket.close();
+   }
+  } catch (error) { }
  };
- 
+
  clientSocket.on('close', closeBoth);
  targetSocket.on('close', closeBoth);
  clientSocket.on('error', closeBoth);

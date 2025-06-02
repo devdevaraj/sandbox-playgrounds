@@ -120,11 +120,15 @@ export async function remove(req, res) {
  try {
   const id = req.params.id;
   const name = pgdb.read(id)?.post_name;
-  removeContainer(name);
+  if (name) {
+   removeContainer(name);
+  }
   pgdb.deleteOne(id);
   const service = monitoringData.get(id);
-  clearTimeout(service.timeout);
-  clearTimeout(service.interractivityTimeout);
+  if (service) {
+   clearTimeout(service.timeout);
+   clearTimeout(service.interractivityTimeout);
+  }
   monitoringData.delete(id);
   res.status(200).json({ msg: "Playground deleted successfully" });
  } catch (error) {
@@ -185,7 +189,9 @@ function pgMonitor(initialST, ST, id) {
 
 function removerService(id) {
  const name = pgdb.read(id)?.post_name;
- removeContainer(name);
+ if (name) {
+  removeContainer(name);
+ }
  pgdb.deleteOne(id);
  monitoringData.delete(id);
 }

@@ -10,6 +10,11 @@ html,body {
   src: url("/fonts/sourseCodePro/SourceCodePro-Regular.ttf");
 }
 
+@font-face {
+  font-family: "Hack Nerdfont";
+  src: url("/fonts/hack/HackNerdFontMono-Regular.ttf");
+}
+
 /* * {
  @apply box-border;
  @apply m-0 p-0;
