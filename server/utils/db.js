@@ -36,12 +36,21 @@ class JSONDB {
   return this.db.find(e => Object.entries(filter).reduce((a, b) => a && e[b[0]] === b[1], true));
  }
 
+ findMany(filter) {
+  return this.db.filter(e => Object.entries(filter).reduce((a, b) => a && e[b[0]] === b[1], true));
+ }
+
  readAll() {
   return this.db;
  }
 
  deleteOne(id) {
   this.db = this.db.filter(e => e._id != id);
+  fs.writeFileSync(this.dbpath, JSON.stringify(this.db));
+ }
+
+ deleteByField(key, value) {
+  this.db = this.db.filter(e => e[key] != value);
   fs.writeFileSync(this.dbpath, JSON.stringify(this.db));
  }
 

@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card } from "../ui/card";
 import Sessions from "../components/sessions/sessions";
+import ExposePort from "../components/expose-port";
 
 function Playground() {
  const navigate = useNavigate();
@@ -186,7 +187,7 @@ function Playground() {
 
    <div className="flex flex-1 p-4 pg-cards-container overflow-hidden">
     <Card className="h-full flex flex-col w-1/4 left-pane p-2">
-     {pg && <Sessions vmID={terminal}/>}
+     {pg && <Sessions vmID={terminal} />}
     </Card>
     <div className="flex items-center justify-center h-full w-4 cursor-col-resize resizer">
      <section className="flex h-6 w-3 bg-white rounded-xs py-1 px-0.5 gap-0.5">
@@ -213,6 +214,7 @@ function Playground() {
          ))}
         </TabsList>
         <div className="flex gap-2">
+         <ExposePort vmID={`vm${terminal + 1}`} />
         </div>
        </div>
       </Tabs>
@@ -254,7 +256,7 @@ export default memo(Playground);
 function inactivityTime(remove: () => Promise<void>) {
  let time: number;
  const maxInactivity = 10 * 60 * 1000;
- 
+
  function resetTimer() {
   clearTimeout(time);
   time = setTimeout(() => {

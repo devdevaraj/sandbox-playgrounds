@@ -4,8 +4,9 @@ import JSONDB from "../utils/db.js";
 import { populate } from "../utils/get-destination.js";
 import waitForPort from "../utils/check-pg.js";
 import removeContainer from "../utils/delete-handler.js";
+import { pgPortClose } from "./conductor.controller.js";
 
-const pgdb = new JSONDB("pgdb")
+export const pgdb = new JSONDB("pgdb");
 const monitoringData = new Map();
 
 export async function checkPG(req, res) {
@@ -124,6 +125,7 @@ export async function remove(req, res) {
    removeContainer(name);
   }
   pgdb.deleteOne(id);
+  await pgPortClose(id);
   const service = monitoringData.get(id);
   if (service) {
    clearTimeout(service.timeout);
