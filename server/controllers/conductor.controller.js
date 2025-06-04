@@ -19,7 +19,7 @@ export async function openPort(req, res) {
   const port = req.params.port;
   const pg_ip = pg.ip;
   const pg_name = pg.post_name;
-  const domain = process.env.DOMAIN;
+  const domain = process.env.PORT_DOMAIN;
   const short_id = simpleHash(vm, port);
   const subdomain = `${pg_name}-${short_id}.${domain}.`
   const DNSresponse = await axios.patch(`http://127.0.0.1:8081/api/v1/servers/localhost/zones/${domain}.`, {
@@ -63,7 +63,7 @@ export async function openPort(req, res) {
 export async function closePort(req, res) {
  try {
   const openport = openports.find({ _id: req.params.id });
-  const domain = process.env.DOMAIN;
+  const domain = process.env.PORT_DOMAIN;
   const DNSresponse = await axios.patch(`http://127.0.0.1:8081/api/v1/servers/localhost/zones/${domain}.`, {
    rrsets: [
     {
@@ -100,7 +100,7 @@ export async function listPort(req, res) {
 export async function pgPortClose(pg_id) {
  try {
   const openport = openports.findMany({ pg_id });
-  const domain = process.env.DOMAIN;
+  const domain = process.env.PORT_DOMAIN;
 
   for (const pp of openport) {
    const DNSresponse = await axios.patch(`http://127.0.0.1:8081/api/v1/servers/localhost/zones/${domain}.`, {
