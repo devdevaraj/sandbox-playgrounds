@@ -5,8 +5,7 @@ export const templates = [
   pgname: "2vmpg",
   numofvms: 2,
   description: "A comprehensive playground with 2 ubuntu 24.04 virtual machines",
-  image:
-  "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800&q=80",
+  image: "/img/2vm-pg-img.jpg",
   tags: ["Ubuntu", "Networking", "VMs"],
   resources: {
    cpu: "2 cores",

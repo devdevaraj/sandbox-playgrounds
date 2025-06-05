@@ -4,8 +4,6 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
 function ExposePort({ vmID }: { vmID: string }) {
- console.log(vmID);
-
  const [popup, setPopup] = useState(false);
  const [ports, setPorts] = useState<{ [key: string]: string }[]>([]);
  const [port, setPort] = useState<number | null>(null);
@@ -38,20 +36,23 @@ function ExposePort({ vmID }: { vmID: string }) {
 
  return (
   <>
-   <button className="text-2xl" onClick={() => setPopup(!popup)}>
+   <button
+    className="text-2xl"
+    onClick={() => setPopup(!popup)}
+   >
     ⌘
    </button>
    {popup && <main className="fixed inset-0 z-30 bg-[#2226] flex items-center justify-center">
     <section className="max-w-full min-w-[40rem] bg-blue-950 rounded-lg relative shadow-2xl p-4">
      <aside onClick={() => setPopup(!popup)} className="absolute top-2 right-4 text-2xl">
-      🗙
+      ×
      </aside>
      <section>
       <h2 className="text-3xl text-center">Expose ports</h2>
       <aside className="flex w-full px-20 py-10 gap-6">
        <input
         placeholder="eg: 8000"
-        className="bg-white text-black h-8 rounded-sm w-4/5"
+        className="bg-white text-black h-8 rounded-sm w-4/5 px-2"
         type="number"
         onInput={e => setPort(Number((e.target as HTMLInputElement).value))} />
        <button

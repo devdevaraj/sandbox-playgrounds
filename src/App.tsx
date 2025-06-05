@@ -18,6 +18,7 @@ import Home from "./pages/home";
 import './App.css';
 
 export const origin = import.meta.env.DEV ? "http://localhost:3000" : location.origin;
+// export const origin = false ? "http://localhost:3000" : location.origin;
 axios.defaults.baseURL = origin;
 
 function App() {

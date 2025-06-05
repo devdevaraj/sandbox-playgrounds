@@ -52,10 +52,8 @@ export async function githubLogin(req, res) {
   let id;
   if (userExists) {
    id = userdb.update(userExists._id, { gid, username, avatar_url, name }).id;
-   console.log("User updated");
   } else {
    id = userdb.write({ gid, username, avatar_url, name }).id;
-   console.log("User created");
   }
   const token = sign({ id, gid, username }, process.env.JWT_SECRET, { expiresIn: "48h" });
   res.status(200).json({ msg: "Login success", user: userResponse.data, token });

@@ -24,20 +24,19 @@ app.use("/api/v1", router);
 
 server.on('upgrade', async (request, socket, head) => {
  const { url } = request;
- 
+
  if (!getDestination(url)) {
   socket.write('HTTP/1.1 404 Not Found\r\n\r\n');
   socket.destroy();
   return;
  }
- 
+
  wss.handleUpgrade(request, socket, head, async (ws) => {
   handleProxyConnection(ws, url);
  });
 });
 
 app.get('*path', (_, res) => res.sendFile(path.resolve('./dist/index.html')));
-
 
 server.listen(process.env.PORT, err => {
  if (err) return console.log("Error starting server", err);

@@ -15,6 +15,7 @@ const TerminalComponent = ({
   const terminalRef = useRef(null!);
   const socketRef = useRef<WebSocket>(null!);
   const origin = import.meta.env.DEV ? "localhost:3000" : location.origin.split("://")[1];
+  // const origin = false ? "localhost:3000" : location.origin.split("://")[1];
 
   function getWebSocketProtocol(): "ws" | "wss" {
     return window.location.protocol === "https:" ? "wss" : "ws";
@@ -41,7 +42,7 @@ const TerminalComponent = ({
     const wsProtocol = getWebSocketProtocol();
 
     let socket: WebSocket;
-    let interval: number;
+    let interval: NodeJS.Timeout;
     function connect() {
       socket = new WebSocket(`${wsProtocol}://${origin}/${pg}/${vmid}`);
       socketRef.current = socket;

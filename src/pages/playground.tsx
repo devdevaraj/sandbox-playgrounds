@@ -254,7 +254,7 @@ function Playground() {
 export default memo(Playground);
 
 function inactivityTime(remove: () => Promise<void>) {
- let time: number;
+ let time: NodeJS.Timeout;
  const maxInactivity = 10 * 60 * 1000;
 
  function resetTimer() {
