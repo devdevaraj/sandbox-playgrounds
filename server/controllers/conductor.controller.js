@@ -75,8 +75,8 @@ export async function closePort(req, res) {
   }, { headers: { "X-API-Key": process.env.PDNS_KEY } });
   if (DNSresponse.status !== 204) throw new Error("DNS Update failed");
 
-  const containerResponse = await axios.delete(`http://${openport.ip}:8080/open-close-port/${openports.short_id}`);
-  if (containerResponse.status !== 200) throw new Error("Failed to open port");
+  const containerResponse = await axios.delete(`http://${openport.ip}:8080/open-close-port/${openport.short_id}`);
+  if (containerResponse.status !== 200) throw new Error("Failed to close port");
 
   openports.deleteOne(req.params.id);
   res.json({ msg: "Port closed" });

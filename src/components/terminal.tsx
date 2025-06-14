@@ -16,7 +16,7 @@ const TerminalComponent = ({
   const terminalRef = useRef(null!);
   const socketRef = useRef<WebSocket>(null!);
   const origin = import.meta.env.DEV ? "localhost:3000" : location.origin.split("://")[1];
-  // const origin = false ? "localhost:3000" : location.origin.split("://")[1];
+  // const origin = "localhost:8082";
 
   function getWebSocketProtocol(): "ws" | "wss" {
     return window.location.protocol === "https:" ? "wss" : "ws";

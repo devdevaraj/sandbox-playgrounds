@@ -51,7 +51,6 @@ export async function poll(req, res) {
    removerService(id);
   }, 5 * 60 * 1000);
   service.interractivityTimeout = interractivityTimeout;
-  console.log("Resetting timeout");
   res.json({ msg: 'Ping received, inactivity timer reset.' });
  } catch (error) {
   console.log(error);
@@ -77,7 +76,11 @@ export async function create(req, res) {
    return res.status(200).json({ msg: "Playground already exists", details: pg });
   }
   const uniqueId = uuidv4().replace(/\D/g, '').slice(0, 12);
-  const response = await axios.post("http://localhost:8080/bridges/" + (pg.pgname ?? "2vmpg"), { name: `pg${uniqueId}` });
+  const response = await axios.post("http://localhost:8080/bridges/" + (pg.pgname ?? "2vmpg"), {
+   id: `${pg._id}`,
+   name: `pg${uniqueId}`,
+   image: `repo.synnefo.solutions/devaraj/2vmpg`,
+  });
   const status = await waitForPort(response.data.ip, 8080);
   const result = pgdb.update(id, {
    ...response.data,
