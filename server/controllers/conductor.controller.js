@@ -97,6 +97,7 @@ export async function listPort(req, res) {
  }
 }
 
+// When deleting container
 export async function pgPortClose(pg_id) {
  try {
   const openport = openports.findMany({ pg_id });
